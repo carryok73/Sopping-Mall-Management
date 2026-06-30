@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Form</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/}">Mall Manager</a>
+    <nav>
+        <a th:href="@{/customers}">Customers</a>
+        <a class="active" th:href="@{/owners}">Owners</a>
+        <a th:href="@{/shops}">Shops</a>
+    </nav>
+</header>
+
+<main class="container narrow">
+    <section class="panel">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow">Owner</p>
+                <h1 th:text="${owner.id == null ? 'Add Owner' : 'Edit Owner'}">Add Owner</h1>
+            </div>
+        </div>
+
+        <form th:action="@{/owners}" th:object="${owner}" method="post" class="form">
+            <input type="hidden" th:field="*{id}">
+
+            <label>
+                Name
+                <input type="text" th:field="*{name}" placeholder="Owner name">
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </label>
+
+            <label>
+                Email
+                <input type="email" th:field="*{email}" placeholder="owner@example.com">
+                <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </label>
+
+            <label>
+                Phone
+                <input type="text" th:field="*{phone}" placeholder="9876543210">
+                <span class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+            </label>
+
+            <label>
+                Company Name
+                <input type="text" th:field="*{companyName}" placeholder="Company name">
+            </label>
+
+            <div class="form-actions">
+                <a class="button" th:href="@{/owners}">Cancel</a>
+                <button class="button primary" type="submit">Save Owner</button>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>

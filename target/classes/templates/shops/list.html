@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shops</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/}">Mall Manager</a>
+    <nav>
+        <a th:href="@{/customers}">Customers</a>
+        <a th:href="@{/owners}">Owners</a>
+        <a class="active" th:href="@{/shops}">Shops</a>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="panel">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow">Records</p>
+                <h1>Shops</h1>
+            </div>
+            <a class="button primary" th:href="@{/shops/new}">Add Shop</a>
+        </div>
+
+        <div class="empty" th:if="${#lists.isEmpty(shops)}">No shops found.</div>
+
+        <div class="table-wrap" th:unless="${#lists.isEmpty(shops)}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Floor</th>
+                    <th>Number</th>
+                    <th>Rent</th>
+                    <th>Owner</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="shop : ${shops}">
+                    <td th:text="${shop.name}">Shop</td>
+                    <td th:text="${shop.category}">Category</td>
+                    <td th:text="${shop.floor}">Floor</td>
+                    <td th:text="${shop.shopNumber}">A-101</td>
+                    <td th:text="${#numbers.formatDecimal(shop.monthlyRent, 1, 2)}">0.00</td>
+                    <td th:text="${shop.owner.name}">Owner</td>
+                    <td class="actions">
+                        <a th:href="@{/shops/edit/{id}(id=${shop.id})}">Edit</a>
+                        <a class="danger" th:href="@{/shops/delete/{id}(id=${shop.id})}"
+                           onclick="return confirm('Delete this shop?')">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

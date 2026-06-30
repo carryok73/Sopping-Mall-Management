@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Mall Management</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/}">Mall Manager</a>
+    <nav>
+        <a th:href="@{/customers}">Customers</a>
+        <a th:href="@{/owners}">Owners</a>
+        <a th:href="@{/shops}">Shops</a>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="hero">
+        <div>
+            <p class="eyebrow">Shopping Mall Management System</p>
+            <h1>Manage mall customers, owners, and shops from one clean dashboard.</h1>
+            <p class="lede">A centralized CRUD system built with Spring Boot, Thymeleaf, JPA, and MySQL.</p>
+        </div>
+        <div class="hero-actions">
+            <a class="button primary" th:href="@{/shops/new}">Add Shop</a>
+            <a class="button" th:href="@{/customers/new}">Add Customer</a>
+        </div>
+    </section>
+
+    <section class="stats">
+        <article>
+            <span th:text="${customerCount}">0</span>
+            <p>Customers</p>
+        </article>
+        <article>
+            <span th:text="${ownerCount}">0</span>
+            <p>Owners</p>
+        </article>
+        <article>
+            <span th:text="${shopCount}">0</span>
+            <p>Shops</p>
+        </article>
+    </section>
+
+    <section class="panel">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow">Overview</p>
+                <h2>Registered Shops</h2>
+            </div>
+            <a class="button" th:href="@{/shops}">View All</a>
+        </div>
+
+        <div class="empty" th:if="${#lists.isEmpty(shops)}">
+            No shops have been added yet.
+        </div>
+
+        <div class="table-wrap" th:unless="${#lists.isEmpty(shops)}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Shop</th>
+                    <th>Category</th>
+                    <th>Floor</th>
+                    <th>Number</th>
+                    <th>Owner</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="shop : ${shops}">
+                    <td th:text="${shop.name}">Fashion Hub</td>
+                    <td th:text="${shop.category}">Fashion</td>
+                    <td th:text="${shop.floor}">First</td>
+                    <td th:text="${shop.shopNumber}">A-101</td>
+                    <td th:text="${shop.owner.name}">Owner</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

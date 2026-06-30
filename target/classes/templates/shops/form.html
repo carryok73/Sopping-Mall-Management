@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Form</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/}">Mall Manager</a>
+    <nav>
+        <a th:href="@{/customers}">Customers</a>
+        <a th:href="@{/owners}">Owners</a>
+        <a class="active" th:href="@{/shops}">Shops</a>
+    </nav>
+</header>
+
+<main class="container narrow">
+    <section class="panel">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow">Shop</p>
+                <h1 th:text="${shop.id == null ? 'Add Shop' : 'Edit Shop'}">Add Shop</h1>
+            </div>
+        </div>
+
+        <div class="empty warning" th:if="${#lists.isEmpty(owners)}">
+            Add at least one owner before creating a shop.
+        </div>
+
+        <form th:action="@{/shops}" th:object="${shop}" method="post" class="form" th:unless="${#lists.isEmpty(owners)}">
+            <input type="hidden" th:field="*{id}">
+
+            <label>
+                Shop Name
+                <input type="text" th:field="*{name}" placeholder="Shop name">
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </label>
+
+            <label>
+                Category
+                <input type="text" th:field="*{category}" placeholder="Fashion, Food, Electronics">
+                <span class="error" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+            </label>
+
+            <label>
+                Floor
+                <input type="text" th:field="*{floor}" placeholder="Ground Floor">
+                <span class="error" th:if="${#fields.hasErrors('floor')}" th:errors="*{floor}"></span>
+            </label>
+
+            <label>
+                Shop Number
+                <input type="text" th:field="*{shopNumber}" placeholder="G-12">
+                <span class="error" th:if="${#fields.hasErrors('shopNumber')}" th:errors="*{shopNumber}"></span>
+            </label>
+
+            <label>
+                Monthly Rent
+                <input type="number" min="0" step="0.01" th:field="*{monthlyRent}" placeholder="25000">
+                <span class="error" th:if="${#fields.hasErrors('monthlyRent')}" th:errors="*{monthlyRent}"></span>
+            </label>
+
+            <label>
+                Owner
+                <select th:field="*{owner}">
+                    <option value="">Select owner</option>
+                    <option th:each="owner : ${owners}" th:value="${owner.id}" th:text="${owner.name}"></option>
+                </select>
+                <span class="error" th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}"></span>
+            </label>
+
+            <div class="form-actions">
+                <a class="button" th:href="@{/shops}">Cancel</a>
+                <button class="button primary" type="submit">Save Shop</button>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>

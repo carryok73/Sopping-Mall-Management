@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: shopping-mall-management-system
+    env: docker
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_USERNAME
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+      - key: JPA_DDL_AUTO
+        value: update

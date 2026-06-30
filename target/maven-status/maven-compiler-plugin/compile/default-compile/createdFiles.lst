@@ -1,0 +1,14 @@
+com\mall\management\controller\CustomerController.class
+com\mall\management\repository\CustomerRepository.class
+com\mall\management\repository\OwnerRepository.class
+com\mall\management\repository\ShopRepository.class
+com\mall\management\service\CustomerService.class
+com\mall\management\ShoppingMallManagementApplication.class
+com\mall\management\service\OwnerService.class
+com\mall\management\entity\Customer.class
+com\mall\management\service\ShopService.class
+com\mall\management\controller\ShopController.class
+com\mall\management\entity\Shop.class
+com\mall\management\controller\DashboardController.class
+com\mall\management\entity\Owner.class
+com\mall\management\controller\OwnerController.class

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/}">Mall Manager</a>
+    <nav>
+        <a class="active" th:href="@{/customers}">Customers</a>
+        <a th:href="@{/owners}">Owners</a>
+        <a th:href="@{/shops}">Shops</a>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="panel">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow">Records</p>
+                <h1>Customers</h1>
+            </div>
+            <a class="button primary" th:href="@{/customers/new}">Add Customer</a>
+        </div>
+
+        <div class="empty" th:if="${#lists.isEmpty(customers)}">No customers found.</div>
+
+        <div class="table-wrap" th:unless="${#lists.isEmpty(customers)}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="customer : ${customers}">
+                    <td th:text="${customer.name}">Name</td>
+                    <td th:text="${customer.email}">email@example.com</td>
+                    <td th:text="${customer.phone}">9999999999</td>
+                    <td th:text="${customer.address}">Address</td>
+                    <td class="actions">
+                        <a th:href="@{/customers/edit/{id}(id=${customer.id})}">Edit</a>
+                        <a class="danger" th:href="@{/customers/delete/{id}(id=${customer.id})}"
+                           onclick="return confirm('Delete this customer?')">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>
